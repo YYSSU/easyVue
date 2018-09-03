@@ -9,4 +9,6 @@
 
 具体内容可以看main.js
 
+线上预览 https:easy.e7lu.cn
+
 如有不足跟理解错误，欢迎指出。
