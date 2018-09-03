@@ -2,9 +2,9 @@
  * Created by litao on 2018/8/9.
  */
 'use strict';
-import EasyVue from 'evAll';
-// import EasyVue from 'evOriginal';
-// import EasyVue from 'evPacking';
+import EasyVue from 'evAll'; //引入此入口文件，可以同时使用 src/views/index.vue 与 src/views/index1.vue 的书写方式
+// import EasyVue from 'evOriginal'; //引入此入口文件，可以使用src/views/index1.vue 的书写方式
+// import EasyVue from 'evPacking'; //引入此入口文件，可以使用src/views/index.vue 的书写方式
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue';
