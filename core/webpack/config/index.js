@@ -3,23 +3,14 @@
  */
 //引入工具类
 const path = require('path');
+const packageJson = require('../../../package.json');
 
 module.exports = {
     dev: {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
         proxyTable: {
-            "/sysAttachment/*": {
-                target: 'http://127.0.0.1:8066'
-                // target: 'http://192.168.120.73:8066'
-            },
-            "/tianrun/download": {
-                target: 'http://127.0.0.1:8066',
-                // target: 'http://192.168.120.73:8066',
-                pathRewrite: {
-                    '^/tianrun/download': '/'
-                }
-            }
+
         },
         host: 'localhost',
         port: 9527,
@@ -35,9 +26,9 @@ module.exports = {
     },
 
     build: {
-        index: path.resolve(__dirname, '../../../dist/tianrun-risk/index.html'),
+        index: path.resolve(__dirname, '../../../dist/' + packageJson.name + '/index.html'),
 
-        assetsRoot: path.resolve(__dirname, '../../../dist/tianrun-risk'),
+        assetsRoot: path.resolve(__dirname, '../../../dist/' + packageJson.name),
         assetsSubDirectory: 'static',
 
         assetsPublicPath: '/',

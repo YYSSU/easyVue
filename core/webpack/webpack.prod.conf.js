@@ -67,7 +67,7 @@ const webpackConfig = merge(baseWebpackConfig, {
             template: 'index.html',
             inject: true,
             favicon: util.resolve('favicon.ico'),
-            title: '投资风险库系统 - 北京天润新能投资有限公司',
+            title: 'ezv - demo',
             path: config.build.assetsPublicPath + config.build.assetsSubDirectory,
             minify: {
                 removeComments: true,
