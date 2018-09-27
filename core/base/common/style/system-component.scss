@@ -1,0 +1,168 @@
+
+/**自定义提示消息的css*/
+.ev-system-message-container{
+  width: 380px;
+  max-width: 50%;
+  margin:auto;
+  border: 1px solid;
+  position: fixed;
+  top: 100px;
+  left:0;
+  right:0;
+  padding: 15px 15px 15px 20px;
+  display: flex;
+  align-items: center;
+  transition: opacity .3s,transform .3s,left .3s,right .3s,top .4s,bottom .3s;
+  & .ev-system-message-close-icon{
+    position: absolute;
+    right: 5px;
+    top: 15px;
+    color: #9e9e9e;
+    cursor: pointer;
+    &:hover{
+      color: #303133;
+    }
+  }
+  & .ev-system-message-icon{
+    margin-right: 10px;
+  }
+  & .ev-system-message-content{
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+}
+
+/**自定义确认框的css*/
+.ev-system-confirm-container{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  & .ev-system-confirm-content{
+    position: absolute;
+    top: 20%;
+    left: calc(50% - 200px);
+    width: 400px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    & .ev-system-confirm-content_head{
+      color: #303133;
+      padding: 15px 15px 10px;
+      & .ev-system-confirm-content_head-title{
+        font-size: 18px;
+        width: calc(100% - 20px);
+        display: inline-block;
+      }
+      & .ev-system-confirm-content_head-close{
+        display: inline-block;
+        cursor: pointer;
+        color: #909399;
+        &:hover{
+          color: #303133;
+        }
+      }
+    }
+    & .ev-system-confirm-content_center{
+      height: calc(100% - 100px);
+      padding: 10px 15px;
+      position: relative;
+      & .ev-system-confirm-content_center-icon{
+        font-size: 25px;
+        color: #e6a23c;
+        position: absolute;
+        top: calc(50% - 12.5px);
+      }
+      & .ev-system-confirm-content_center-content{
+        font-size: 14px;
+        color: #606266;
+        display: inline-block;
+        width: calc(100% - 35px);
+        padding-left: 35px;
+      }
+    }
+    & .ev-system-confirm-content_footer{
+      padding: 5px 15px 0;
+      text-align: right;
+      margin-bottom: 10px;
+      & .ev-system-confirm-content_footer-cancel, & .ev-system-confirm-content_footer-confirm{
+        padding: 9px 15px;
+        font-size: 12px;
+        border-radius: 4px;
+        font-weight: 500;
+        display: inline-block;
+        border: 1px solid;
+        line-height: 1;
+        cursor: pointer;
+        &:not(:first-child){
+          margin-left: 10px;
+        }
+      }
+      & .ev-system-confirm-content_footer-cancel{
+        color: #606266;
+        border-color: #dcdfe6;
+        &:hover{
+          color: #409eff;
+          border-color: #c6e2ff;
+          background-color: #ecf5ff;
+        }
+      }
+      & .ev-system-confirm-content_footer-confirm{
+        color: #fff;
+        background-color: #409eff;
+        border-color: #409eff;
+        &:hover{
+          background: #66b1ff;
+          border-color: #66b1ff;
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+/**自定义遮罩的css*/
+.ev-system-mask-container{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  //border: 1px solid #eaeaea;
+  background-color: rgba(255, 253, 253, 0.92);
+  display: flex;
+  align-items: center;
+  & .ev-system-mask-spinner{
+    top: 50%;
+    margin-top: -21px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    & .ev-system-mask-spinner_icon{
+      margin: 0 auto;
+      color: #409eff;
+      transform: rotate(360deg);
+      animation: rotation 2s linear infinite;
+    }
+    & .ev-system-mask-spinner_text{
+      color: #409eff;
+      margin: 3px auto;
+      font-size: 14px;
+      line-height: 1.5em;
+    }
+  }
+}
+.ev-system-mask-container_parent{
+  position: relative !important;
+  overflow: hidden;
+}
+
+@-webkit-keyframes rotation{
+  from {-webkit-transform: rotate(0deg);}
+  to {-webkit-transform: rotate(360deg);}
+}
