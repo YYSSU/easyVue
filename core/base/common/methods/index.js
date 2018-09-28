@@ -630,6 +630,23 @@ export function $getRef(ref = '', self) {
     }
 }
 
+/**
+ * 退出登录
+ * @param sleep
+ */
+export function $logoutHandler (){
+    this.$store.commit('CLEAR_USER');
+    this.$store.commit('CLEAR_MENU');
+    this.$store.commit('CLEAR_PERMISSION_BUTTONS');
+    this.$cookie.remove(this.$httpTokenKey);
+    this.$jump('/login');
+    // if(sleep){
+    //     setTimeout(() => window.location.reload(), sleep);
+    // }else{
+    //     window.location.reload();
+    // }
+}
+
 
 /**
  * 日期格式化

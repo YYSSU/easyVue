@@ -59,6 +59,11 @@ service.interceptors.response.use(response => {
         return Promise.reject(error || '啊哦，系统异常');
     }else if (error.response.status === 502) {
         return Promise.reject('啊哦，链接超时了,请联系管理员！');
+    } else if(error.response.status === 401){
+        let errorMsg = error.response.data ? error.response.data.message : undefined;
+        errorMsg = errorMsg || '身份过期，请重新登录';
+        vm.$error(errorMsg);
+        vm.$logoutHandler();
     } else {
 
         if (!error.response) {

@@ -3,6 +3,11 @@
  * Created by litao on 2018/9/26.
  */
 export default {
+    /**
+     * cookie存储http请求的token时的key
+     */
+    $httpTokenKey: 'ezv-demo-token',
+
     $testGlobalMethod (){
         this.$info('this is testGlobalMethod');
     }
