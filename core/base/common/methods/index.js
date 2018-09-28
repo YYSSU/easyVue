@@ -37,6 +37,37 @@ export function $deepObjectMerge(firstObj = {}, secondObj = {}) { // 深度合�
     return firstObj;
 }
 
+
+/**
+ * 深度copy对象
+ * @param data
+ * @return {*}
+ */
+export function $deepCopy(data) {
+    const t = typeOf(data);
+    let o;
+
+    if (t === 'array') {
+        o = [];
+    } else if ( t === 'object') {
+        o = {};
+    } else {
+        return data;
+    }
+
+    if (t === 'array') {
+        for (let i = 0; i < data.length; i++) {
+            o.push($deepCopy(data[i]));
+        }
+    } else if ( t === 'object') {
+        for (let i in data) {
+            o[i] = $deepCopy(data[i]);
+        }
+    }
+    return o;
+}
+
+
 /**
  * 加载图片
  * @param path 图片路径
