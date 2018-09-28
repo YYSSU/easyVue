@@ -312,9 +312,37 @@ function generateMessageDom(type, msg, duration = 3000) {
                 props: {
                     enterActiveClass: currentTypeSetting.inCls,
                     leaveActiveClass: currentTypeSetting.outCls
+                },
+                on: {
+                    enter: el => {
+                        el.style.top = `${Vue.prototype.$EZV_messageTop}px`;
+                        Vue.prototype.$EZV_messageTop = parseFloat(el.style.top) + parseFloat(el.offsetHeight) + 10;
+                    },
+
+                    leave: el => {
+                        let currentDomTimeStamp = el.getAttribute('timeStamp');
+                        let messageDomList = new Array(...document.getElementsByClassName('ev-system-message-container'))
+                            .filter(dom => dom.getAttribute('timeStamp') !== currentDomTimeStamp);
+
+                        if(messageDomList.length > 0){
+                            messageDomList.forEach(dom => {
+                                setTimeout(() => {
+                                    let oldTopValue = dom.style.top;
+                                    let newTopValue = parseFloat(oldTopValue) - el.offsetHeight - 10;
+                                    dom.style.top = (newTopValue < 100 ? 100 : newTopValue) + 'px';
+                                }, 100);
+                                if(messageDomList.indexOf(dom) === messageDomList.length - 1){
+                                    Vue.prototype.$EZV_messageTop = parseFloat(messageDomList.pop().style.top);
+                                }
+                            });
+                        }
+                    }
                 }
             }, [this.show && h('div', {
                 class: 'ev-system-message-container',
+                attrs: {
+                    timeStamp: new Date().getTime()
+                },
                 style: {
                     backgroundColor: currentTypeSetting.backColor,
                     borderColor: currentTypeSetting.borderColor,
@@ -356,17 +384,10 @@ function generateMessageDom(type, msg, duration = 3000) {
         },
 
         computed: {
-            currentHeight (){
-                return this.$el.offsetHeight + 10;
-            }
         },
 
         mounted (){
             this.startTimeOut();
-            this.$nextTick(function () {
-                this.$el.style.top = `${Vue.prototype.$EZV_messageTop}px`;
-                Vue.prototype.$EZV_messageTop += this.currentHeight;
-            });
 
             ['warn', 'error'].includes(type) && this.consoleInfo(type);
         },
@@ -410,27 +431,6 @@ function generateMessageDom(type, msg, duration = 3000) {
                             }
                         }
                     }
-                }
-            }
-        },
-
-        watch: {
-            show (v, o){
-                if(!v){
-                    this.$nextTick(function () {
-                        let doms = new Array(...document.getElementsByClassName('ev-system-message-container')).filter(dom => dom !== this.$el);
-                        doms.forEach(dom => {
-                            let top = parseFloat(dom.style.top) - this.currentHeight;
-                            top = top < 100 ? 100 : top;
-                            dom.style.top = `${top}px`;
-                        });
-
-                        if(doms.length > 1){
-                            Vue.prototype.$EZV_messageTop = parseFloat(doms[1].style.top);
-                        }else{
-                            Vue.prototype.$EZV_messageTop = 100;
-                        }
-                    });
                 }
             }
         }
