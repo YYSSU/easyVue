@@ -600,6 +600,47 @@ export function $openMask(target, text = '拼命加载中') {
     }
 }
 
+
+/**
+ * 对dom进行平滑滚动
+ * @param el 滚动实例
+ * @param from 开始值
+ * @param to 结束值
+ * @param duration 从开始到结束需要的时间 默认500ms
+ * @param endCallback 结束之后的回调
+ */
+export function $scrollTop(el, from = 0, to, duration = 500, endCallback) {
+    //为保证动画平滑度，避免直接使用timeout
+    if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = (
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                return window.setTimeout(callback, 1000/60);
+            }
+        );
+    }
+    const difference = Math.abs(from - to);
+    const step = Math.ceil(difference / duration * 50);
+
+    function scroll(start, end, step) {
+        if (start === end) {
+            endCallback && endCallback();
+            return;
+        }
+
+        let d = (start + step > end) ? end : start + step;
+        if (start > end) {
+            d = (start - step < end) ? end : start - step;
+        }
+
+        el.scrollTo(d, d);
+        window.requestAnimationFrame(() => scroll(d, end, step));
+    }
+    scroll(from, to, step);
+}
+
 /**
  * 关闭遮罩
  * @param isImmediateExecution 是否立即执行 默认延迟执行
